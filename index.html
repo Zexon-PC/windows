@@ -13,10 +13,70 @@
 
         /* TEXT SELECTION & DRAG BLOCKED */
         body {
-            background: #0a0a1a; /* Changed to solid dark base to highlight animations */
+            background: #0a0a1a; 
             background-attachment: fixed; color: white; min-height: 100vh; overflow-x: hidden;
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
         }
+
+        /* ========================================================= */
+        /* --- DIL GARDEN GARDEN ANIMATION STYLES (NEW ADDITION) --- */
+        /* ========================================================= */
+        
+        #smooth-intro {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #05050d; z-index: 999999;
+            display: flex; align-items: center; justify-content: center;
+            /* Slides up smoothly after loading */
+            animation: introSlideUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) 2.2s forwards;
+        }
+        .intro-content { text-align: center; color: white; }
+        .intro-icon {
+            font-size: 70px; color: #00d2ff; margin-bottom: 20px;
+            filter: drop-shadow(0 0 25px #00d2ff);
+            animation: iconFloat 2s ease-in-out infinite alternate;
+        }
+        .intro-text {
+            font-size: 40px; font-weight: 700; letter-spacing: 2px;
+            background: linear-gradient(90deg, #00d2ff, #ff00ff, #00ffcc);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            opacity: 0; transform: translateY(20px);
+            animation: textFadeIn 0.8s ease-out 0.4s forwards, gradientFlow 3s linear infinite;
+        }
+        .loading-line {
+            width: 0; height: 4px; background: linear-gradient(90deg, #00d2ff, #ff00ff);
+            margin: 25px auto 0; border-radius: 5px;
+            box-shadow: 0 0 20px #ff00ff;
+            animation: loadLine 1.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards;
+        }
+
+        /* Intro Keyframes */
+        @keyframes iconFloat { 0% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 10px #00d2ff); } 100% { transform: translateY(-10px) scale(1.05); filter: drop-shadow(0 0 40px #ff00ff); } }
+        @keyframes textFadeIn { to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientFlow { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+        @keyframes loadLine { 0% { width: 0; opacity: 1; } 80% { width: 250px; opacity: 1; } 100% { width: 250px; opacity: 0; } }
+        @keyframes introSlideUp { to { transform: translateY(-100%); opacity: 0; pointer-events: none; } }
+
+        /* Smooth Entry For Website Elements */
+        .top-wrapper { animation: smoothDrop 1s cubic-bezier(0.25, 0.8, 0.25, 1) 2.4s backwards; }
+        .bundle-section { animation: smoothUp 1s cubic-bezier(0.25, 0.8, 0.25, 1) 2.6s backwards; }
+        .software-card { animation: smoothUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) backwards; }
+        
+        /* Staggered load for cards */
+        .software-card:nth-child(1) { animation-delay: 2.7s; }
+        .software-card:nth-child(2) { animation-delay: 2.8s; }
+        .software-card:nth-child(3) { animation-delay: 2.9s; }
+        .software-card:nth-child(4) { animation-delay: 3.0s; }
+        .software-card:nth-child(5) { animation-delay: 3.1s; }
+        .software-card:nth-child(6) { animation-delay: 3.2s; }
+        .software-card:nth-child(7) { animation-delay: 3.3s; }
+        .software-card:nth-child(8) { animation-delay: 3.4s; }
+        .software-card:nth-child(9) { animation-delay: 3.5s; }
+        .software-card:nth-child(10) { animation-delay: 3.6s; }
+
+        @keyframes smoothDrop { 0% { transform: translateY(-100%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes smoothUp { 0% { transform: translateY(60px) scale(0.95); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
+        /* ========================================================= */
 
         /* --- NEW ANIMATED BACKGROUND STYLES --- */
         .bg-animation {
@@ -247,6 +307,13 @@
 </head>
 <body>
 
+    <div id="smooth-intro">
+        <div class="intro-content">
+            <i class="fa-brands fa-windows intro-icon"></i>
+            <h1 class="intro-text">Premium Software</h1>
+            <div class="loading-line"></div>
+        </div>
+    </div>
     <div class="bg-animation">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
