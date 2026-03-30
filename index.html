@@ -128,7 +128,7 @@
             background: transparent; letter-spacing: 0.5px; color: white;
         }
         .top-banner .discount { color: #ff0000; }
-        .top-banner .lifetime { color: #ffffff; }
+        .top-banner .lifetime { color: #00ff00; text-shadow: 0 0 5px rgba(0,255,0,0.3); } /* Changed to Green */
         .top-banner .premium { color: #ffff00; }
 
         header { display: flex; justify-content: space-between; align-items: center; padding: 0 5%; }
@@ -251,7 +251,17 @@
             color: white; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center;
             gap: 10px; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+        
+        /* HOVER EFFECTS */
         .btn:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); z-index: 2; }
+        
+        /* SMOOTH CLICK ANIMATION (NEW ADDITION) */
+        .btn:active, .btn-bundle:active, .contact-modal-btn:active { 
+            transform: scale(0.95) translateY(0) !important; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important; 
+            transition: all 0.1s ease !important; 
+        }
+
         .btn-download { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2); }
         .btn-download:hover { background: rgba(255, 255, 255, 0.2); }
         .btn-password { background: #1b8a36; border: 1px solid #28a745; }
