@@ -123,9 +123,11 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
+        /* UPDATED TOP BANNER TEXT TO MATCH SEARCH BAR SIZE */
         .top-banner {
-            text-align: center; padding: 15px; font-size: 20px; font-weight: 700;
+            text-align: center; padding: 10px 15px; font-size: 14px; font-weight: 600;
             background: transparent; letter-spacing: 0.5px; color: white;
+            max-width: 500px; margin: 0 auto; line-height: 1.4;
         }
         .top-banner .discount { color: #ff0000; }
         .top-banner .lifetime { color: #00ff00; text-shadow: 0 0 5px rgba(0,255,0,0.3); } 
@@ -142,7 +144,7 @@
         }
         .search-container input:focus { background: rgba(255,255,255,0.15); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
-        /* NEW HEADER BUTTONS (PLUGIN & SUPPORT) */
+        /* HEADER BUTTONS (SUPPORT) */
         .header-btn {
             color: #ff9900; text-decoration: none; font-size: 15px; font-weight: 600;
             background: rgba(255, 153, 0, 0.1); border: 1px solid rgba(255, 153, 0, 0.3);
@@ -153,6 +155,18 @@
         .header-btn:hover {
             transform: scale(1.05); background: rgba(255, 153, 0, 0.2); box-shadow: 0 0 15px rgba(255, 153, 0, 0.4); color: #fff;
         }
+
+        /* NEW GREEN PLUGIN BUTTON */
+        .btn-plugin {
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1); border: 1px solid rgba(0, 255, 0, 0.3);
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        .btn-plugin:hover {
+            background: rgba(0, 255, 0, 0.2); box-shadow: 0 0 15px rgba(0, 255, 0, 0.4); color: #fff;
+        }
+
+        .header-right { display: flex; align-items: center; gap: 20px; }
 
         /* --- BUNDLE PLAN --- */
         .bundle-section {
@@ -360,15 +374,17 @@
         <header>
             <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/windows/';" class="os-logo" title="Windows Supported"><i class="fa-brands fa-windows"></i> Windows</a>
             
-            <a href="plugin" class="header-btn" title="Plugin">Plugin</a>
+            <a href="plugin" class="header-btn btn-plugin" title="Plugin">Plugin</a>
             
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search software....">
             </div>
             
-            <a href="support" class="header-btn" title="Support">Support</a>
+            <div class="header-right">
+                <a href="support" class="header-btn" title="Support">Support</a>
+                <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/macos/';" class="os-logo" id="appleLink" title="Mac Supported"><i class="fa-brands fa-apple"></i></a>
+            </div>
             
-            <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/macos/';" class="os-logo" id="appleLink" title="Mac Supported"><i class="fa-brands fa-apple"></i></a>
         </header>
     </div>
 
