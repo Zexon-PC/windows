@@ -123,7 +123,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* FIX: TOP BANNER TEXT IN ONE LINE AND CENTERED */
+        /* TOP BANNER TEXT - CENTERED */
         .top-banner {
             text-align: center; padding: 10px 15px; font-size: 15px; font-weight: 600;
             background: transparent; letter-spacing: 0.5px; color: white;
@@ -144,9 +144,10 @@
         }
         .search-container input:focus { background: rgba(255,255,255,0.15); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
-        /* FIX: LEFT ALIGNED & STACKED BUTTONS (SUPPORT + PLUGIN) */
-        .header-left { display: flex; align-items: center; gap: 15px; }
-        .stacked-btns { display: flex; flex-direction: column; gap: 5px; }
+        /* FIX: LEFT ALIGNED & STACKED BUTTONS WITH INCREASED GAP & FLEX SETTINGS FOR ALIGNMENT */
+        .header-left { display: flex; align-items: center; gap: 15px; flex: 1; }
+        .header-right { display: flex; align-items: center; gap: 20px; flex: 1; justify-content: flex-end; }
+        .stacked-btns { display: flex; flex-direction: column; gap: 12px; } /* Increased Gap Here */
         
         .header-btn {
             color: #ff9900; text-decoration: none; font-size: 13px; font-weight: 600;
@@ -167,8 +168,6 @@
         .btn-plugin:hover {
             background: rgba(0, 255, 0, 0.2); box-shadow: 0 0 10px rgba(0, 255, 0, 0.4); color: #fff;
         }
-
-        .header-right { display: flex; align-items: center; gap: 20px; }
 
         /* --- BUNDLE PLAN --- */
         .bundle-section {
@@ -352,6 +351,7 @@
         /* MOBILE RESPONSIVE ADJUSTMENTS */
         @media (max-width: 600px) { 
             header { flex-wrap: wrap; gap: 15px; justify-content: center; } 
+            .header-left, .header-right { flex: initial; justify-content: center; }
             .search-container { order: 3; margin: 0; max-width: 100%; width: 100%; } 
             .top-banner { white-space: normal; } /* Prevents overflow on very small screens */
         }
