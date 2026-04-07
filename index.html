@@ -142,6 +142,18 @@
         }
         .search-container input:focus { background: rgba(255,255,255,0.15); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
+        /* NEW SUPPORT LINK IN HEADER */
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        .header-support {
+            color: #ff9900; text-decoration: none; font-size: 16px; font-weight: 600;
+            background: rgba(255, 153, 0, 0.1); border: 1px solid rgba(255, 153, 0, 0.3);
+            padding: 8px 18px; border-radius: 20px; transition: 0.3s;
+            text-shadow: 0 0 10px rgba(255, 153, 0, 0.5); letter-spacing: 0.5px;
+        }
+        .header-support:hover {
+            transform: scale(1.05); background: rgba(255, 153, 0, 0.2); box-shadow: 0 0 15px rgba(255, 153, 0, 0.4); color: #fff;
+        }
+
         /* --- BUNDLE PLAN --- */
         .bundle-section {
             text-align: center; margin: 40px auto; width: 90%; max-width: 1000px; padding: 50px 30px;
@@ -285,18 +297,6 @@
         .floating-social a:hover { transform: scale(1.1); box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
         .whatsapp { color: #25D366; text-shadow: 0 0 10px rgba(37, 211, 102, 0.5); }
         .telegram { color: #0088cc; text-shadow: 0 0 10px rgba(0, 136, 204, 0.5); }
-        
-        /* ADJUSTED SUPPORT BUTTON FOR TEXT */
-        .support { 
-            color: #ff9900; 
-            text-shadow: 0 0 10px rgba(255, 153, 0, 0.5); 
-            font-size: 15px !important; 
-            font-weight: 600; 
-            width: auto !important; 
-            padding: 0 20px; 
-            border-radius: 30px !important;
-            letter-spacing: 0.5px;
-        }
 
         /* --- MODAL --- */
         .modal-overlay {
@@ -357,7 +357,12 @@
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search software....">
             </div>
-            <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/macos/';" class="os-logo" id="appleLink" title="Mac Supported"><i class="fa-brands fa-apple"></i></a>
+            
+            <div class="header-right">
+                <a href="https://zexon-pc.github.io/windows/support" class="header-support" title="Support">Support</a>
+                <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/macos/';" class="os-logo" id="appleLink" title="Mac Supported"><i class="fa-brands fa-apple"></i></a>
+            </div>
+            
         </header>
     </div>
 
@@ -671,7 +676,6 @@
     <div class="floating-social">
         <a href="#" onclick="event.preventDefault(); window.open('https://wa.me/message/MTTGHMIF7TNSC1', '_blank');" class="whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
         <a href="#" onclick="event.preventDefault(); window.open('https://t.me/Its_Maxado', '_blank');" class="telegram"><i class="fa-brands fa-telegram"></i></a>
-        <a href="https://zexon-pc.github.io/windows/support" class="support" title="Support">Support</a>
     </div>
 
     <div class="modal-overlay" id="videoModal" onclick="closeVideo()">
