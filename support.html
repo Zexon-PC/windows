@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mac Software Store</title>
+    <title>Windows Software</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
@@ -17,57 +17,6 @@
             background-attachment: fixed; color: white; min-height: 100vh; overflow-x: hidden;
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
         }
-
-        /* ========================================================= */
-        /* --- DIL GARDEN GARDEN ANIMATION STYLES --- */
-        /* ========================================================= */
-        
-        #smooth-intro {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #05050d; z-index: 999999;
-            display: flex; align-items: center; justify-content: center;
-            /* Slides up smoothly after loading */
-            animation: introSlideUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) 2.2s forwards;
-        }
-        .intro-content { text-align: center; color: white; }
-        .intro-icon {
-            font-size: 80px; color: #f5f5f7; margin-bottom: 20px;
-            filter: drop-shadow(0 0 25px rgba(255,255,255,0.8));
-            animation: iconFloat 2s ease-in-out infinite alternate;
-        }
-        .intro-text {
-            font-size: 40px; font-weight: 700; letter-spacing: 2px;
-            background: linear-gradient(90deg, #00d2ff, #ff00ff, #00ffcc);
-            background-size: 200% auto;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            opacity: 0; transform: translateY(20px);
-            animation: textFadeIn 0.8s ease-out 0.4s forwards, gradientFlow 3s linear infinite;
-        }
-        .loading-line {
-            width: 0; height: 4px; background: linear-gradient(90deg, #00d2ff, #ff00ff);
-            margin: 25px auto 0; border-radius: 5px;
-            box-shadow: 0 0 20px #ff00ff;
-            animation: loadLine 1.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards;
-        }
-
-        /* Intro Keyframes */
-        @keyframes iconFloat { 0% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); } 100% { transform: translateY(-10px) scale(1.05); filter: drop-shadow(0 0 40px rgba(255,255,255,0.9)); } }
-        @keyframes textFadeIn { to { opacity: 1; transform: translateY(0); } }
-        @keyframes gradientFlow { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
-        @keyframes loadLine { 0% { width: 0; opacity: 1; } 80% { width: 250px; opacity: 1; } 100% { width: 250px; opacity: 0; } }
-        @keyframes introSlideUp { to { transform: translateY(-100%); opacity: 0; pointer-events: none; } }
-
-        /* Smooth Entry For Website Elements */
-        .top-wrapper { animation: smoothDrop 1s cubic-bezier(0.25, 0.8, 0.25, 1) 2.4s backwards; }
-        .software-card { animation: smoothUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) backwards; }
-        
-        /* Staggered load for cards */
-        .software-card:nth-child(1) { animation-delay: 2.5s; }
-        .software-card:nth-child(2) { animation-delay: 2.6s; }
-
-        @keyframes smoothDrop { 0% { transform: translateY(-100%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-        @keyframes smoothUp { 0% { transform: translateY(60px) scale(0.95); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
-        /* ========================================================= */
 
         /* --- NEW ANIMATED BACKGROUND STYLES --- */
         .bg-animation {
@@ -119,7 +68,7 @@
         .header-left { display: flex; align-items: center; gap: 20px; }
         .header-right { display: flex; align-items: center; justify-content: flex-end; }
         
-        .stacked-btns { display: flex; flex-direction: column; gap: 15px; } 
+        .stacked-btns { display: flex; flex-direction: column; gap: 24px; } 
         
         .os-logo { font-size: 28px; color: #fff; text-decoration: none; transition: 0.3s; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         .os-logo:hover { transform: scale(1.1); }
@@ -135,12 +84,19 @@
             transform: scale(1.05); background: rgba(255, 153, 0, 0.2); box-shadow: 0 0 10px rgba(255, 153, 0, 0.4); color: #fff;
         }
 
-        /* --- SOFTWARE GRID --- */
-        .software-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px 5%; margin-bottom: 50px; z-index: 10;}
+        /* --- SOFTWARE GRID (CENTERED) --- */
+        .software-container { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 30px; 
+            padding: 50px 5%; 
+            margin-bottom: 50px; 
+            z-index: 10;
+        }
 
-        /* FIX: Prevents stretching by setting max-width and center alignment */
         .software-card { 
-            padding: 25px; 
+            padding: 35px 25px; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -148,11 +104,23 @@
             transition: 0.3s; 
             position: relative; 
             width: 100%; 
-            max-width: 380px; 
-            justify-self: center; 
+            max-width: 350px; 
         }
 
-        .software-logo { width: 80px; height: 80px; margin-bottom: 15px; border-radius: 15px; animation: logoPulse 5s infinite alternate ease-in-out; object-fit: contain; }
+        .software-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .software-logo { 
+            width: 90px; 
+            height: 90px; 
+            margin-bottom: 20px; 
+            border-radius: 15px; 
+            object-fit: contain; 
+            animation: logoPulse 5s infinite alternate ease-in-out; 
+        }
+
         @keyframes logoPulse {
             0% { filter: drop-shadow(0 0 10px #00d2ff) drop-shadow(0 0 20px #ff00ff); }
             33% { filter: drop-shadow(0 0 15px #ff00ff) drop-shadow(0 0 25px #00ffcc); }
@@ -160,26 +128,35 @@
             100% { filter: drop-shadow(0 0 10px #00d2ff) drop-shadow(0 0 20px #ff00ff); }
         }
 
-        .software-title { font-size: 22px; font-weight: 700; margin-bottom: 15px; letter-spacing: 1px; }
+        .software-title { font-size: 24px; font-weight: 700; margin-bottom: 20px; letter-spacing: 1px; color: #fff; }
 
         /* --- BUTTONS --- */
-        .card-btns { width: 100%; display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 1; margin-top: 15px;}
+        .card-btns { width: 100%; display: flex; flex-direction: column; position: relative; z-index: 1; margin-top: 10px;}
+        
         .btn {
             width: 100%; padding: 14px; border-radius: 10px; border: none; font-size: 16px; font-weight: 600;
             color: white; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center;
             gap: 10px; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .btn:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); z-index: 2; }
         
         /* SMOOTH CLICK ANIMATION */
-        .btn:active, .contact-modal-btn:active { 
+        .btn:active { 
             transform: scale(0.95) translateY(0) !important; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important; 
             transition: all 0.1s ease !important; 
         }
 
-        .btn-download { background: rgba(0, 210, 255, 0.2); border: 1px solid rgba(0, 210, 255, 0.5); text-shadow: 0 0 5px rgba(0, 210, 255, 0.8); }
-        .btn-download:hover { background: rgba(0, 210, 255, 0.4); box-shadow: 0 0 15px rgba(0, 210, 255, 0.6); }
+        .btn-download { 
+            background: rgba(0, 210, 255, 0.2); 
+            border: 1px solid rgba(0, 210, 255, 0.5); 
+            text-shadow: 0 0 5px rgba(0, 210, 255, 0.8); 
+        }
+        .btn-download:hover { 
+            transform: scale(1.05) translateY(-5px); 
+            z-index: 2;
+            background: rgba(0, 210, 255, 0.4); 
+            box-shadow: 0 10px 25px rgba(0, 210, 255, 0.6); 
+        }
 
         /* --- FLOATING ICONS --- */
         .floating-social { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; align-items: flex-end; }
@@ -190,29 +167,6 @@
         .floating-social a:hover { transform: scale(1.1); box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
         .whatsapp { color: #25D366; text-shadow: 0 0 10px rgba(37, 211, 102, 0.5); }
         .telegram { color: #0088cc; text-shadow: 0 0 10px rgba(0, 136, 204, 0.5); }
-
-        /* --- MODAL --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px);
-            z-index: 2000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease-out;
-        }
-        .modal-overlay.active { display: flex; opacity: 1; }
-        .modal-content {
-            background: #000; border-radius: 10px; box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 60px rgba(255, 0, 255, 0.6);
-            position: relative; transform: scale(0.8); opacity: 0; transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        }
-        
-        .contact-modal-content {
-            width: 90%; max-width: 400px; padding: 40px; display: flex; flex-direction: column; gap: 20px;
-            background: rgba(20,20,40,0.9); border: 1px solid rgba(255,255,255,0.2); text-align: center;
-        }
-        .contact-modal-btn {
-            display: flex; align-items: center; justify-content: center; gap: 15px; padding: 15px; border-radius: 15px;
-            text-decoration: none; font-size: 20px; font-weight: 600; backdrop-filter: blur(15px); box-shadow: 0 10px 25px rgba(0,0,0,0.6); transition: 0.3s;
-        }
-        .contact-modal-btn:hover { transform: scale(1.05); }
-        .contact-whatsapp { background: rgba(37, 211, 102, 0.15); border: 1px solid rgba(37, 211, 102, 0.5); color: #25D366; text-shadow: 0 0 10px rgba(37,211,102,0.5); }
-        .contact-telegram { background: rgba(0, 136, 204, 0.15); border: 1px solid rgba(0, 136, 204, 0.5); color: #0088cc; text-shadow: 0 0 10px rgba(0,136,204,0.5); }
         
         @media (max-width: 600px) { 
             header { flex-wrap: wrap; gap: 15px; justify-content: space-between; } 
@@ -221,13 +175,6 @@
 </head>
 <body>
 
-    <div id="smooth-intro">
-        <div class="intro-content">
-            <i class="fa-brands fa-apple intro-icon"></i>
-            <h1 class="intro-text">Premium Mac Software</h1>
-            <div class="loading-line"></div>
-        </div>
-    </div>
     <div class="bg-animation">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
@@ -236,35 +183,36 @@
     <div class="top-wrapper">
         <header>
             <div class="header-left">
-                <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/macos/';" class="os-logo" title="macOS Supported"><i class="fa-brands fa-apple"></i> macOS</a>
+                <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/windows/';" class="os-logo" title="Windows Supported"><i class="fa-brands fa-windows"></i> Windows</a>
                 <div class="stacked-btns">
                     <a href="support" class="header-btn" title="Support">Support</a>
                 </div>
             </div>
             
             <div class="header-right">
-                <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/windows/';" class="os-logo" id="windowsLink" title="Go to Windows Store"><i class="fa-brands fa-windows"></i></a>
+                <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/macos/';" class="os-logo" id="appleLink" title="Mac Supported"><i class="fa-brands fa-apple"></i></a>
             </div>
         </header>
     </div>
 
+    <!-- CARDS MOVED TO CENTER -->
     <div class="software-container" id="softwareList">
         
         <div class="software-card glass-panel" data-name="winrar">
-            <img src="winrar.png" alt="WinRAR Logo" class="software-logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/en/thumb/5/53/WinRAR_icon.png/256px-WinRAR_icon.png'">
+            <img src="winrar.png" alt="WinRAR Logo" class="software-logo">
             <div class="software-title">WinRAR</div>
             
             <div class="card-btns">
-                <a href="https://drive.google.com/uc?export=download&id=1-W4NaFWDB8yZN4o16uOxLAvVUNNC1JBT" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Direct Download</a>
+                <a href="https://drive.google.com/uc?export=download&id=1-W4NaFWDB8yZN4o16uOxLAvVUNNC1JBT&confirm=t" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
             </div>
         </div>
 
         <div class="software-card glass-panel" data-name="ultra viewer">
-            <img src="ultraviewer.png" alt="Ultra Viewer Logo" class="software-logo" onerror="this.src='https://images.sftcdn.net/mac/c/0dc434ba-e0f0-4df2-ab64-eb0e5d12efbb/1151624891/ultraviewer-icon.png'">
+            <img src="ultra-viewer.png" alt="Ultra Viewer Logo" class="software-logo">
             <div class="software-title">Ultra Viewer</div>
             
             <div class="card-btns">
-                <a href="https://drive.google.com/uc?export=download&id=1O25AoAOMkOke2wA5ggg3LshgZ62wiJfJ" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Direct Download</a>
+                <a href="https://drive.google.com/uc?export=download&id=1O25AoAOMkOke2wA5ggg3LshgZ62wiJfJ&confirm=t" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
             </div>
         </div>
 
