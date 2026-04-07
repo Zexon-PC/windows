@@ -142,15 +142,15 @@
         }
         .search-container input:focus { background: rgba(255,255,255,0.15); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
-        /* NEW SUPPORT LINK IN HEADER */
-        .header-right { display: flex; align-items: center; gap: 20px; }
-        .header-support {
-            color: #ff9900; text-decoration: none; font-size: 16px; font-weight: 600;
+        /* NEW HEADER BUTTONS (PLUGIN & SUPPORT) */
+        .header-btn {
+            color: #ff9900; text-decoration: none; font-size: 15px; font-weight: 600;
             background: rgba(255, 153, 0, 0.1); border: 1px solid rgba(255, 153, 0, 0.3);
             padding: 8px 18px; border-radius: 20px; transition: 0.3s;
             text-shadow: 0 0 10px rgba(255, 153, 0, 0.5); letter-spacing: 0.5px;
+            white-space: nowrap;
         }
-        .header-support:hover {
+        .header-btn:hover {
             transform: scale(1.05); background: rgba(255, 153, 0, 0.2); box-shadow: 0 0 15px rgba(255, 153, 0, 0.4); color: #fff;
         }
 
@@ -332,7 +332,12 @@
         .download-ios { background: rgba(10, 132, 255, 0.15); border: 1px solid rgba(10, 132, 255, 0.5); color: #0A84FF; text-shadow: 0 0 10px rgba(10,132,255,0.5); flex-direction: column; gap: 5px; padding: 10px; }
 
         #search-error { text-align: center; color: #ff4d4d; font-size: 20px; display: none; width: 100%; margin-top: 50px; }
-        @media (max-width: 600px) { header { flex-wrap: wrap; gap: 15px; justify-content: center; } .search-container { order: 3; margin: 0; max-width: 100%; } }
+        
+        /* MOBILE RESPONSIVE ADJUSTMENTS */
+        @media (max-width: 600px) { 
+            header { flex-wrap: wrap; gap: 15px; justify-content: center; } 
+            .search-container { order: 3; margin: 0; max-width: 100%; width: 100%; } 
+        }
     </style>
 </head>
 <body>
@@ -354,15 +359,16 @@
         </div>
         <header>
             <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/windows/';" class="os-logo" title="Windows Supported"><i class="fa-brands fa-windows"></i> Windows</a>
+            
+            <a href="plugin" class="header-btn" title="Plugin">Plugin</a>
+            
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search software....">
             </div>
             
-            <div class="header-right">
-                <a href="https://zexon-pc.github.io/windows/support" class="header-support" title="Support">Support</a>
-                <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/macos/';" class="os-logo" id="appleLink" title="Mac Supported"><i class="fa-brands fa-apple"></i></a>
-            </div>
+            <a href="support" class="header-btn" title="Support">Support</a>
             
+            <a href="#" onclick="event.preventDefault(); window.location.href='https://zexon-pc.github.io/macos/';" class="os-logo" id="appleLink" title="Mac Supported"><i class="fa-brands fa-apple"></i></a>
         </header>
     </div>
 
