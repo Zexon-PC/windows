@@ -135,7 +135,6 @@
         .os-logo:hover { transform: scale(1.1); }
 
         /* FIX 2 & 3: PERFECT ALIGNMENT & CENTERING */
-        /* Center column aligns text and search perfectly, and shifts right based on remaining space */
         .header-center { flex-grow: 1; max-width: 650px; margin: 0 40px; display: flex; flex-direction: column; gap: 12px; }
 
         .top-banner {
@@ -221,7 +220,6 @@
         /* --- SOFTWARE GRID --- */
         .software-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 20px 5%; margin-bottom: 50px; z-index: 10;}
 
-        /* FIX: Prevents stretching by setting max-width and center alignment */
         .software-card { 
             padding: 25px; 
             display: flex; 
@@ -287,7 +285,6 @@
         /* HOVER EFFECTS */
         .btn:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); z-index: 2; }
         
-        /* SMOOTH CLICK ANIMATION (NEW ADDITION) */
         .btn:active, .btn-bundle:active, .contact-modal-btn:active { 
             transform: scale(0.95) translateY(0) !important; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important; 
@@ -306,7 +303,6 @@
         .btn-test-payment::before { display: none !important; }
         .btn-video { background: #ffcc00; color: #000; border: 1px solid #e6b800; }
         .btn-video:hover { background: #ffd633; }
-        .btn-canva-pay { background: #ffcc00; color: #000; font-size: 13px; line-height: 1.4; padding: 15px 10px; text-align: left; border: 1px solid #e6b800;}
 
         /* --- FLOATING ICONS --- */
         .floating-social { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; align-items: flex-end; }
@@ -345,7 +341,6 @@
         .contact-whatsapp { background: rgba(37, 211, 102, 0.15); border: 1px solid rgba(37, 211, 102, 0.5); color: #25D366; text-shadow: 0 0 10px rgba(37,211,102,0.5); }
         .contact-telegram { background: rgba(0, 136, 204, 0.15); border: 1px solid rgba(0, 136, 204, 0.5); color: #0088cc; text-shadow: 0 0 10px rgba(0,136,204,0.5); }
 
-        /* NEW DOWNLOAD MODAL BUTTONS STYLES */
         .download-windows { background: rgba(0, 164, 239, 0.15); border: 1px solid rgba(0, 164, 239, 0.5); color: #00a4ef; text-shadow: 0 0 10px rgba(0,164,239,0.5); }
         .download-android { background: rgba(61, 220, 132, 0.15); border: 1px solid rgba(61, 220, 132, 0.5); color: #3DDC84; text-shadow: 0 0 10px rgba(61,220,132,0.5); }
         .download-mac { background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.5); color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
@@ -353,7 +348,6 @@
 
         #search-error { text-align: center; color: #ff4d4d; font-size: 20px; display: none; width: 100%; margin-top: 50px; }
         
-        /* MOBILE RESPONSIVE ADJUSTMENTS */
         @media (max-width: 850px) {
             .top-banner { white-space: normal; line-height: 1.4; font-size: 13px;}
         }
@@ -583,6 +577,44 @@
             </div>
         </div>
 
+        <div class="software-card glass-panel" data-name="topaz ai pro">
+            <img src="topaz.png" alt="Logo" class="software-logo">
+            <div class="software-title">Topaz AI Pro <span class="year-text">2026</span></div>
+            <div class="price-tag">(<span class="highlight-price">Price ₹110</span>)</div>
+            
+            <div class="custom-select-wrapper" data-value="2026">
+                <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
+                <ul class="custom-select-options">
+                    <li data-value="2026" class="selected" data-download="#" data-pay="#" data-video="#">Version 2026</li>
+                </ul>
+            </div>
+
+            <div class="card-btns">
+                <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
+                <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
+                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
+            </div>
+        </div>
+
+        <div class="software-card glass-panel" data-name="coreldraw 2026">
+            <img src="CorelDRAW.png" alt="Logo" class="software-logo">
+            <div class="software-title">CorelDRAW <span class="year-text">2026</span></div>
+            <div class="price-tag">(<span class="highlight-price">Price ₹105</span>)</div>
+            
+            <div class="custom-select-wrapper" data-value="2026">
+                <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
+                <ul class="custom-select-options">
+                    <li data-value="2026" class="selected" data-download="#" data-pay="#" data-video="#">Version 2026</li>
+                </ul>
+            </div>
+
+            <div class="card-btns">
+                <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
+                <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
+                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
+            </div>
+        </div>
+
         <div class="software-card glass-panel" data-name="adobe media encoder">
             <img src="media-encoder.svg" alt="Logo" class="software-logo">
             <div class="software-title">Adobe Media Encoder <span class="year-text">2026</span></div>
@@ -698,7 +730,6 @@
                 <div class="custom-select-trigger"><span>Version 2024</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
                     <li data-value="2024" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=6878ef9892608a6c9ee7c58d9ef3361a" data-video="#">Version 2024</li>
-                   
                 </ul>
             </div>
 
@@ -718,7 +749,6 @@
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
                     <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=622c894aab3a926dc98d8e3fa610fcbc" data-video="#">Version 2026</li>
-                   
                 </ul>
             </div>
 
@@ -791,7 +821,6 @@
                 option.addEventListener('click', function(e) {
                     if(e) e.stopPropagation();
                     const value = this.getAttribute('data-value');
-                    
                     const text = this.textContent.trim(); 
                     
                     wrapper.querySelector('.custom-select-trigger span').textContent = text; 
@@ -830,7 +859,6 @@
             modal.classList.remove('active'); setTimeout(() => { modal.style.display = 'none'; }, 300);
         }
 
-        // --- NEW DOWNLOAD MODAL LOGIC ---
         function openDownloadModal() {
             const modal = document.getElementById('downloadModal');
             modal.style.display = 'flex'; setTimeout(() => { modal.classList.add('active'); }, 10);
@@ -849,7 +877,6 @@
             
             if(yearText) yearText.textContent = version;
 
-            // Find the selected <li> to get its specific links
             const selectedOption = wrapper.querySelector(`li[data-value="${version}"]`);
             if(!selectedOption) return;
 
@@ -887,7 +914,6 @@
             }
         }
 
-        // INITIALIZE ALL CARDS ON LOAD
         document.querySelectorAll('.software-card').forEach(card => updateCardLinks(card));
 
         // --- SEARCH LOGIC WITH SMOOTH ANIMATION ---
