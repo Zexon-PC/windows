@@ -59,7 +59,7 @@
 
         /* Smooth Entry For Website Elements */
         .top-wrapper { animation: smoothDrop 1s cubic-bezier(0.25, 0.8, 0.25, 1) 2.4s backwards; }
-        .bundle-section { animation: smoothUp 1s cubic-bezier(0.25, 0.8, 0.25, 1) 2.6s backwards; }
+        .bundle-section, .tutorial-section { animation: smoothUp 1s cubic-bezier(0.25, 0.8, 0.25, 1) 2.6s backwards; }
         .software-card { animation: smoothUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) backwards; }
         
         /* Staggered load for cards */
@@ -128,13 +128,11 @@
         .header-left { display: flex; align-items: center; gap: 20px; }
         .header-right { display: flex; align-items: center; justify-content: flex-end; }
         
-        /* FIX 1: DOUBLE GAP BETWEEN BUTTONS */
         .stacked-btns { display: flex; flex-direction: column; gap: 24px; } 
         
         .os-logo { font-size: 28px; color: #fff; text-decoration: none; transition: 0.3s; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         .os-logo:hover { transform: scale(1.1); }
 
-        /* FIX 2 & 3: PERFECT ALIGNMENT & CENTERING */
         .header-center { flex-grow: 1; max-width: 650px; margin: 0 40px; display: flex; flex-direction: column; gap: 12px; }
 
         .top-banner {
@@ -175,7 +173,7 @@
 
         /* --- BUNDLE PLAN --- */
         .bundle-section {
-            text-align: center; margin: 40px auto; width: 90%; max-width: 1000px; padding: 50px 30px;
+            text-align: center; margin: 40px auto 20px auto; width: 90%; max-width: 1000px; padding: 50px 30px;
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
         }
@@ -216,6 +214,32 @@
             transform: skewX(-20deg); animation: slideLight 4s infinite linear;
         }
         .btn-bundle:hover { transform: scale(1.05); box-shadow: 0 0 35px rgba(13, 59, 223, 0.9); }
+
+        /* --- NEW GLOBAL INSTALLATION VIDEO SECTION --- */
+        .tutorial-section {
+            display: flex; align-items: center; justify-content: space-between;
+            margin: 0 auto 40px auto; width: 90%; max-width: 1000px; padding: 25px 40px;
+            gap: 20px; flex-wrap: wrap; z-index: 20; position: relative;
+        }
+        .tutorial-content {
+            display: flex; align-items: center; gap: 20px; flex: 1; min-width: 250px;
+        }
+        .tutorial-icon {
+            font-size: 45px; color: #ffcc00;
+            filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.6));
+            animation: pulseIcon 2s infinite alternate;
+        }
+        @keyframes pulseIcon {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.4)); }
+            100% { transform: scale(1.05); filter: drop-shadow(0 0 25px rgba(255, 204, 0, 0.8)); }
+        }
+        .tutorial-text { text-align: left; }
+        .tutorial-text h3 { font-size: 20px; font-weight: 600; margin-bottom: 5px; color: #fff; letter-spacing: 0.5px;}
+        .tutorial-text p { font-size: 14px; color: #ccc; line-height: 1.4; margin: 0;}
+        
+        .tutorial-section .btn-video {
+            width: auto; padding: 14px 30px; font-size: 16px; white-space: nowrap;
+        }
 
         /* --- SOFTWARE GRID --- */
         .software-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 20px 5%; margin-bottom: 50px; z-index: 10;}
@@ -356,6 +380,10 @@
             .header-left, .header-right { justify-content: center; width: auto; }
             .header-center { order: 3; margin: 10px 0 0 0; max-width: 100%; width: 100%; } 
             .stacked-btns { flex-direction: row; gap: 15px; }
+            .tutorial-section { flex-direction: column; text-align: center; padding: 25px 20px;}
+            .tutorial-content { flex-direction: column; text-align: center; gap: 15px;}
+            .tutorial-text h3 { text-align: center;}
+            .tutorial-section .btn-video { width: 100%; }
         }
     </style>
 </head>
@@ -419,6 +447,21 @@
         <a href="#" class="btn-bundle">Buy Bundle Plans</a>
     </div>
 
+    <!-- NEW INSTALLATION VIDEO SECTION -->
+    <div class="tutorial-section glass-panel" id="tutorialSection">
+        <div class="tutorial-content">
+            <i class="fa-solid fa-circle-play tutorial-icon"></i>
+            <div class="tutorial-text">
+                <h3>Installation steps video</h3>
+                <p>Website kaise use karna hai, download & install process, sab kuch is video mein dekhein.</p>
+            </div>
+        </div>
+        <!-- IMPORTANT: Apna master drive video link yaha par "openVideo('...')" ke andar dal dena -->
+        <button class="btn btn-video" onclick="event.preventDefault(); openVideo('https://drive.google.com/file/d/1eRc7C8OLn8G9_vUHfZdj6GYnmGOhiZlL/preview')">
+            <i class="fa-solid fa-video"></i> Watch Video
+        </button>
+    </div>
+
     <div id="search-error">Oops! Software match nahin ho raha hai. Sahi naam type karein.</div>
 
     <div class="software-container" id="softwareList">
@@ -455,19 +498,18 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=f39875ce1a0de41a48ef7bb4e1df1540" data-video="https://drive.google.com/file/d/1eRc7C8OLn8G9_vUHfZdj6GYnmGOhiZlL/preview">Version 2026</li>
-                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=58c78a3d672ccf10cd116b703e71a588" data-video="#">Version 2025</li>
-                    <li data-value="2024" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=7eef82d2bd0f0953572e149f1446048d" data-video="#">Version 2024</li>
-                    <li data-value="2023" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=d6af57cb1e070923360f01d43de0d96a" data-video="#">Version 2023</li>
-                    <li data-value="2022" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=25ea7e2061824d7190536a958b4f4a4c" data-video="#">Version 2022</li>
-                    <li data-value="2021" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=bcd25b9d63b9d1564c6db6dc6ab6efc7" data-video="#">Version 2021</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=f39875ce1a0de41a48ef7bb4e1df1540">Version 2026</li>
+                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=58c78a3d672ccf10cd116b703e71a588">Version 2025</li>
+                    <li data-value="2024" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=7eef82d2bd0f0953572e149f1446048d">Version 2024</li>
+                    <li data-value="2023" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=d6af57cb1e070923360f01d43de0d96a">Version 2023</li>
+                    <li data-value="2022" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=25ea7e2061824d7190536a958b4f4a4c">Version 2022</li>
+                    <li data-value="2021" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=bcd25b9d63b9d1564c6db6dc6ab6efc7">Version 2021</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -479,19 +521,18 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=ae8c9196252c9dee92a0d2e79f387510" data-video="#">Version 2026</li>
-                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=627eb01e4121db93c755075e93496b7f" data-video="#">Version 2025</li>
-                    <li data-value="2024" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=d7a3ee583a01e82f2c94d6c0ad15613f" data-video="#">Version 2024</li>
-                    <li data-value="2023" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=3c4defb6e95daaf24aeacedb82aa6ac0" data-video="#">Version 2023</li>
-                    <li data-value="2022" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=3b7675de5ef8ff9276713f49d75c8a23" data-video="#">Version 2022</li>
-                    <li data-value="2021" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=1370f4994db9288d299db495db35078e" data-video="#">Version 2021</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=ae8c9196252c9dee92a0d2e79f387510">Version 2026</li>
+                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=627eb01e4121db93c755075e93496b7f">Version 2025</li>
+                    <li data-value="2024" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=d7a3ee583a01e82f2c94d6c0ad15613f">Version 2024</li>
+                    <li data-value="2023" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=3c4defb6e95daaf24aeacedb82aa6ac0">Version 2023</li>
+                    <li data-value="2022" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=3b7675de5ef8ff9276713f49d75c8a23">Version 2022</li>
+                    <li data-value="2021" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=1370f4994db9288d299db495db35078e">Version 2021</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -503,19 +544,18 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=da31478be6a0a593a800aa9e8e7a194f" data-video="#">Version 2026</li>
-                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=531d824f7415954df6c4a309f0195930" data-video="#">Version 2025</li>
-                    <li data-value="2024" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=d35592c04d80dfa0bfb3a41e55c1d800" data-video="#">Version 2024</li>
-                    <li data-value="2023" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=6f5b40b7a2aad17600006ce9d6a5edbf" data-video="#">Version 2023</li>
-                    <li data-value="2022" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=e15e60d4583936db34d9e90ac626dbe0" data-video="#">Version 2022</li>
-                    <li data-value="2021" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=6ed6e334f88f7369cee020ac06e50f75" data-video="#">Version 2021</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=da31478be6a0a593a800aa9e8e7a194f">Version 2026</li>
+                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=531d824f7415954df6c4a309f0195930">Version 2025</li>
+                    <li data-value="2024" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=d35592c04d80dfa0bfb3a41e55c1d800">Version 2024</li>
+                    <li data-value="2023" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=6f5b40b7a2aad17600006ce9d6a5edbf">Version 2023</li>
+                    <li data-value="2022" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=e15e60d4583936db34d9e90ac626dbe0">Version 2022</li>
+                    <li data-value="2021" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=6ed6e334f88f7369cee020ac06e50f75">Version 2021</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -527,16 +567,15 @@
             <div class="custom-select-wrapper" data-value="15">
                 <div class="custom-select-trigger"><span>Version 15</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="15" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=c58264ddf5bf9ca68b373ab725cfb115" data-video="#">Version 15</li>
-                    <li data-value="14" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=204bb5f5a2a511aa0f3b821a737ee306" data-video="#">Version 14</li>
-                    <li data-value="13" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=ccfc402c0f46b8e2bdf05e5946b69537" data-video="#">Version 13</li>
+                    <li data-value="15" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=c58264ddf5bf9ca68b373ab725cfb115">Version 15</li>
+                    <li data-value="14" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=204bb5f5a2a511aa0f3b821a737ee306">Version 14</li>
+                    <li data-value="13" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=ccfc402c0f46b8e2bdf05e5946b69537">Version 13</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -547,14 +586,13 @@
             
             <div class="custom-select-wrapper" data-value="lifetime" style="display:none;">
                 <ul class="custom-select-options">
-                    <li data-value="lifetime" class="selected" data-pay="https://maxpay.maxado.in/generate_payment.php?template=11756fc9281814bddeccaedeb111e2a8" data-video="#">Lifetime</li>
+                    <li data-value="lifetime" class="selected" data-pay="https://maxpay.maxado.in/generate_payment.php?template=11756fc9281814bddeccaedeb111e2a8">Lifetime</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn" onclick="event.preventDefault(); openDownloadModal();"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Pay</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -566,14 +604,13 @@
             <div class="custom-select-wrapper" data-value="20">
                 <div class="custom-select-trigger"><span>Studio 20</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="20" class="selected" data-download="#" data-pay="#" data-video="#">Studio 20</li>
+                    <li data-value="20" class="selected" data-download="#" data-pay="#">Studio 20</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -585,14 +622,13 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="#" data-video="#">Version 2026</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="#">Version 2026</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -604,14 +640,13 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="#" data-video="#">Version 2026</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="#">Version 2026</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -623,19 +658,18 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=b849b66609a4e7b8c8f2822096edddc2" data-video="#">Version 2026</li>
-                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=6f47a811f18306469575957be77e081f" data-video="#">Version 2025</li>
-                    <li data-value="2024" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=4c4d43d30b3888075310ed1ca95df1e1" data-video="#">Version 2024</li>
-                    <li data-value="2023" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=21bcb7cea84cc4f925637264cae776ac" data-video="#">Version 2023</li>
-                    <li data-value="2022" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=f2f799b2e859bc2ad9043b6e9b09589a" data-video="#">Version 2022</li>
-                    <li data-value="2021" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=658406d05c65a31db7b840354958b023" data-video="#">Version 2021</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=b849b66609a4e7b8c8f2822096edddc2">Version 2026</li>
+                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=6f47a811f18306469575957be77e081f">Version 2025</li>
+                    <li data-value="2024" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=4c4d43d30b3888075310ed1ca95df1e1">Version 2024</li>
+                    <li data-value="2023" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=21bcb7cea84cc4f925637264cae776ac">Version 2023</li>
+                    <li data-value="2022" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=f2f799b2e859bc2ad9043b6e9b09589a">Version 2022</li>
+                    <li data-value="2021" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=658406d05c65a31db7b840354958b023">Version 2021</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -647,19 +681,18 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=c257926107f517faad68c38dd7738adb" data-video="#">Version 2026</li>
-                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=ce2a5d513263c84b0da888e14e561f40" data-video="#">Version 2025</li>
-                    <li data-value="2024" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=1d7c0c57e21ac6ad605d96456816bf20" data-video="#">Version 2024</li>
-                    <li data-value="2023" data-download="#" data-pay="#https://maxpay.maxado.in/generate_payment.php?template=4bb83ddba97439e55b2fca5658261d0f" data-video="#">Version 2023</li>
-                    <li data-value="2022" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=20c30c94df2774b3d375e52de982ac1e" data-video="#">Version 2022</li>
-                    <li data-value="2021" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=7c30db68545efbd866b437dbf039ddb0" data-video="#">Version 2021</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=c257926107f517faad68c38dd7738adb">Version 2026</li>
+                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=ce2a5d513263c84b0da888e14e561f40">Version 2025</li>
+                    <li data-value="2024" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=1d7c0c57e21ac6ad605d96456816bf20">Version 2024</li>
+                    <li data-value="2023" data-download="#" data-pay="#https://maxpay.maxado.in/generate_payment.php?template=4bb83ddba97439e55b2fca5658261d0f">Version 2023</li>
+                    <li data-value="2022" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=20c30c94df2774b3d375e52de982ac1e">Version 2022</li>
+                    <li data-value="2021" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=7c30db68545efbd866b437dbf039ddb0">Version 2021</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -671,15 +704,14 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=2cbf87261c89210e705fbe0bc6f74d14" data-video="#">Version 2026</li>
-                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=32e96b5f31a7bea91b7965196fb0cf4d" data-video="#">Version 2025</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=2cbf87261c89210e705fbe0bc6f74d14">Version 2026</li>
+                    <li data-value="2025" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=32e96b5f31a7bea91b7965196fb0cf4d">Version 2025</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -691,14 +723,13 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=59dad17f715be086c5e93452dbcc6876" data-video="#">Version 2026</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=59dad17f715be086c5e93452dbcc6876">Version 2026</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -710,14 +741,13 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=b0c6397ae569a7949539425a6d87c7cd" data-video="#">Version 2026</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=b0c6397ae569a7949539425a6d87c7cd">Version 2026</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -729,14 +759,13 @@
             <div class="custom-select-wrapper" data-value="2024">
                 <div class="custom-select-trigger"><span>Version 2024</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2024" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=6878ef9892608a6c9ee7c58d9ef3361a" data-video="#">Version 2024</li>
+                    <li data-value="2024" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=6878ef9892608a6c9ee7c58d9ef3361a">Version 2024</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -748,14 +777,13 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=622c894aab3a926dc98d8e3fa610fcbc" data-video="#">Version 2026</li>
+                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=622c894aab3a926dc98d8e3fa610fcbc">Version 2026</li>
                 </ul>
             </div>
 
             <div class="card-btns">
                 <a href="#" class="btn btn-download action-btn"><i class="fa-solid fa-download"></i> Download</a>
                 <a href="#" class="btn btn-password action-btn"><i class="fa-solid fa-key"></i> Get Password (Pay)</a>
-                <button class="btn btn-video action-btn"><i class="fa-solid fa-video"></i> Installation steps + proof video</button>
             </div>
         </div>
 
@@ -841,6 +869,8 @@
 
         // --- MODAL LOGIC ---
         function openVideo(link) {
+            // Converts standard drive link to preview link for iframe embedding
+            if(link.includes('/view')) link = link.replace(/\/view.*/, '/preview');
             document.getElementById('videoIframe').src = link;
             const modal = document.getElementById('videoModal');
             modal.style.display = 'flex'; setTimeout(() => { modal.classList.add('active'); }, 10);
@@ -882,11 +912,9 @@
 
             const dlLink = selectedOption.getAttribute('data-download') || '#';
             const payLink = selectedOption.getAttribute('data-pay') || '#';
-            const vidLink = selectedOption.getAttribute('data-video') || '#';
 
             const downloadBtn = card.querySelector('.btn-download');
             const payBtn = card.querySelector('.btn-password');
-            const videoBtn = card.querySelector('.btn-video');
             
             if(downloadBtn && !downloadBtn.hasAttribute("onclick")) {
                 downloadBtn.href = "#";
@@ -900,16 +928,6 @@
                 payBtn.onclick = function(e) {
                     e.preventDefault();
                     if(payLink && payLink !== '#') window.location.href = payLink;
-                };
-            }
-            
-            if(videoBtn) {
-                videoBtn.onclick = function(e) {
-                    e.preventDefault(); 
-                    if(vidLink === "#" || vidLink === "") { alert("Video link not added yet!"); return; }
-                    let finalLink = vidLink;
-                    if(finalLink.includes('/view')) finalLink = finalLink.replace(/\/view.*/, '/preview');
-                    openVideo(finalLink);
                 };
             }
         }
@@ -941,6 +959,7 @@
 
         const searchInput = document.getElementById('searchInput');
         const bundleSection = document.getElementById('bundleSection');
+        const tutorialSection = document.getElementById('tutorialSection'); // Naya section variable
         const searchError = document.getElementById('search-error');
         const allCards = document.querySelectorAll('.software-card');
 
@@ -948,7 +967,9 @@
             const query = this.value.toLowerCase().trim();
             
             if (query === "") {
-                bundleSection.style.display = 'block'; searchError.style.display = 'none';
+                bundleSection.style.display = 'block'; 
+                tutorialSection.style.display = 'flex'; // Agar khali ho to video section dikhao
+                searchError.style.display = 'none';
                 allCards.forEach(card => {
                     if(card.style.display === 'none' || card.style.display === '') {
                         card.style.display = 'flex';
@@ -961,6 +982,8 @@
             }
             
             bundleSection.style.display = 'none';
+            tutorialSection.style.display = 'none'; // Search karne par hide kar diya hai
+            
             const yearMatch = query.match(/\d{2,4}/);
             const searchYear = yearMatch ? yearMatch[0] : null;
             const queryWords = query.replace(/[0-9]/g, '').trim().split(/\s+/).filter(w => w.length > 0);
