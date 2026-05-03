@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows Bundle Plans</title>
+    <title>Windows Software</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
@@ -17,31 +17,6 @@
             background-attachment: fixed; color: white; min-height: 100vh; overflow-x: hidden;
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
         }
-
-        /* ========================================================= */
-        /* --- SMOOTH ENTRY ANIMATIONS (Loads Immediately) --- */
-        /* ========================================================= */
-        
-        .top-wrapper { animation: smoothDrop 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.1s backwards; }
-        .bundle-section { animation: smoothUp 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s backwards; }
-        .software-card { animation: smoothUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) backwards; }
-        
-        /* Staggered load for cards starting immediately */
-        .software-card:nth-child(1) { animation-delay: 0.4s; }
-        .software-card:nth-child(2) { animation-delay: 0.5s; }
-        .software-card:nth-child(3) { animation-delay: 0.6s; }
-        .software-card:nth-child(4) { animation-delay: 0.7s; }
-        .software-card:nth-child(5) { animation-delay: 0.8s; }
-        .software-card:nth-child(6) { animation-delay: 0.9s; }
-        .software-card:nth-child(7) { animation-delay: 1.0s; }
-        .software-card:nth-child(8) { animation-delay: 1.1s; }
-        .software-card:nth-child(9) { animation-delay: 1.2s; }
-        .software-card:nth-child(10) { animation-delay: 1.3s; }
-        .software-card:nth-child(11) { animation-delay: 1.4s; }
-
-        @keyframes smoothDrop { 0% { transform: translateY(-100%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-        @keyframes smoothUp { 0% { transform: translateY(60px) scale(0.95); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
-        /* ========================================================= */
 
         /* --- BACKGROUND STYLES --- */
         .bg-animation {
@@ -126,26 +101,30 @@
             100% { filter: drop-shadow(0 0 15px #ff0000) drop-shadow(0 0 35px #ff0000); }
         }
 
-        /* --- NEW SMOOTH BUTTON ANIMATION SYSTEM --- */
-        /* Wrapper handles floating up/down */
+        /* --- SMOOTH FLOATING & SHINING GREEN BUTTON --- */
         .bundle-btn-wrapper {
             display: inline-block;
             margin-top: 15px; 
             animation: slowFloatUpDown 3s infinite ease-in-out;
         }
+        
+        /* Stop the floating movement completely when mouse is on it */
+        .bundle-btn-wrapper:hover {
+            animation-play-state: paused; 
+        }
+
         @keyframes slowFloatUpDown {
             0% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
             100% { transform: translateY(0); }
         }
 
-        /* Button handles styling, glow, and hover zoom smoothly */
         .btn-bundle {
             background: #1b8a36; /* Premium Green */
             color: white; padding: 14px 40px; border: none; border-radius: 30px;
             font-size: 18px; font-weight: 600; cursor: pointer; text-decoration: none;
             display: inline-block; position: relative; overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Ensure smooth zoom */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             box-shadow: 0 0 15px rgba(27, 138, 54, 0.6);
             animation: glowPulse 3s infinite ease-in-out;
         }
@@ -163,11 +142,11 @@
         }
         @keyframes fastSlideLight { 0% { left: -100%; } 100% { left: 200%; } }
 
-        /* Smooth hover zoom without any jhatka */
+        /* Smooth hover zoom and stop the glow */
         .btn-bundle:hover { 
-            transform: scale(1.05); /* Only scale, float is handled by wrapper */
+            transform: scale(1.05); /* Sirf zoom in karega smooth tarike se */
             box-shadow: 0 10px 25px rgba(27, 138, 54, 0.9) !important; 
-            animation-play-state: paused; /* Optional: pauses the glow while hovering */
+            animation-play-state: paused; 
         }
 
         /* --- SOFTWARE GRID --- */
@@ -285,8 +264,8 @@
                 <img src="character-animator.svg" alt="Ch">
             </div>
         </div>
-        <!-- Wrapper handles float, button handles smooth hover & link -->
         <div class="bundle-btn-wrapper">
+            <!-- YouTube link set yahan par hai -->
             <a href="https://youtu.be/COu2hEGOeuY?si=UR0qDrfWaT4xMIze" target="_blank" class="btn-bundle">Pay Now</a>
         </div>
     </div>
