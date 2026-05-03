@@ -19,7 +19,7 @@
         }
 
         /* ========================================================= */
-        /* --- SMOOTH ENTRY ANIMATIONS (Adjusted to load immediately) --- */
+        /* --- SMOOTH ENTRY ANIMATIONS (Loads Immediately) --- */
         /* ========================================================= */
         
         .top-wrapper { animation: smoothDrop 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.1s backwards; }
@@ -126,27 +126,34 @@
             100% { filter: drop-shadow(0 0 15px #ff0000) drop-shadow(0 0 35px #ff0000); }
         }
 
-        /* --- FLOATING & SHINING BUTTON ANIMATION --- */
+        /* --- FLOATING & SHINING GREEN BUTTON ANIMATION --- */
         .btn-bundle {
-            background: #0d3bdf; color: white; padding: 14px 40px; border: none; border-radius: 30px;
-            font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none;
+            background: #1b8a36; /* Premium Green */
+            color: white; padding: 14px 40px; border: none; border-radius: 30px;
+            font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); text-decoration: none;
             display: inline-block; position: relative; overflow: hidden;
-            animation: floatAndGlow 2s infinite ease-in-out;
+            margin-top: 15px; /* Thoda down kiya gaya */
+            animation: slowFloatAndGlow 3s infinite ease-in-out; /* Halka aur smooth float */
         }
-        @keyframes floatAndGlow {
-            0% { transform: translateY(0); box-shadow: 0 0 20px rgba(13, 59, 223, 0.7); }
-            50% { transform: translateY(-8px); box-shadow: 0 0 40px rgba(13, 59, 223, 1), 0 0 25px rgba(0, 210, 255, 0.8); }
-            100% { transform: translateY(0); box-shadow: 0 0 20px rgba(13, 59, 223, 0.7); }
+        @keyframes slowFloatAndGlow {
+            0% { transform: translateY(0); box-shadow: 0 0 15px rgba(27, 138, 54, 0.6); }
+            50% { transform: translateY(-3px); box-shadow: 0 0 25px rgba(27, 138, 54, 0.9), 0 0 15px rgba(0, 255, 128, 0.5); }
+            100% { transform: translateY(0); box-shadow: 0 0 15px rgba(27, 138, 54, 0.6); }
         }
         
         .btn-bundle::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.7), transparent);
-            transform: skewX(-20deg); animation: fastSlideLight 1.5s infinite linear;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-20deg); animation: fastSlideLight 2s infinite linear;
         }
         @keyframes fastSlideLight { 0% { left: -100%; } 100% { left: 200%; } }
 
-        .btn-bundle:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 0 35px rgba(13, 59, 223, 0.9); animation-play-state: paused; }
+        /* Hover Effect exactly like download button */
+        .btn-bundle:hover { 
+            animation: none; /* Mouse hold par continuous animation stop karega */
+            transform: scale(1.05) translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(27, 138, 54, 0.9); 
+        }
 
         /* --- SOFTWARE GRID --- */
         .software-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 20px 5%; margin-bottom: 50px; z-index: 10;}
@@ -208,7 +215,7 @@
         
         .btn:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); z-index: 2; }
         
-        .btn:active, .contact-modal-btn:active { 
+        .btn:active, .btn-bundle:active, .contact-modal-btn:active { 
             transform: scale(0.95) translateY(0) !important; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important; 
             transition: all 0.1s ease !important; 
@@ -263,7 +270,8 @@
                 <img src="character-animator.svg" alt="Ch">
             </div>
         </div>
-        <a href="#" class="btn-bundle">Pay Now</a>
+        <!-- Link ko update kiya gaya hai takki click karne par jhatka na aaye -->
+        <a href="#" onclick="event.preventDefault();" class="btn-bundle">Pay Now</a>
     </div>
 
     <div class="software-container" id="softwareList">
