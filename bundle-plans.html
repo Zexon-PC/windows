@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows Software Bundle Plans</title>
+    <title>Windows Software</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
@@ -126,19 +126,34 @@
             100% { filter: drop-shadow(0 0 15px #ff0000) drop-shadow(0 0 35px #ff0000); }
         }
 
-        /* --- FLOATING & SHINING GREEN BUTTON ANIMATION --- */
+        /* --- NEW SMOOTH BUTTON ANIMATION SYSTEM --- */
+        /* Wrapper handles floating up/down */
+        .bundle-btn-wrapper {
+            display: inline-block;
+            margin-top: 15px; 
+            animation: slowFloatUpDown 3s infinite ease-in-out;
+        }
+        @keyframes slowFloatUpDown {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Button handles styling, glow, and hover zoom smoothly */
         .btn-bundle {
             background: #1b8a36; /* Premium Green */
             color: white; padding: 14px 40px; border: none; border-radius: 30px;
-            font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); text-decoration: none;
+            font-size: 18px; font-weight: 600; cursor: pointer; text-decoration: none;
             display: inline-block; position: relative; overflow: hidden;
-            margin-top: 15px; /* Thoda down kiya gaya */
-            animation: slowFloatAndGlow 3s infinite ease-in-out; /* Halka aur smooth float */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Ensure smooth zoom */
+            box-shadow: 0 0 15px rgba(27, 138, 54, 0.6);
+            animation: glowPulse 3s infinite ease-in-out;
         }
-        @keyframes slowFloatAndGlow {
-            0% { transform: translateY(0); box-shadow: 0 0 15px rgba(27, 138, 54, 0.6); }
-            50% { transform: translateY(-3px); box-shadow: 0 0 25px rgba(27, 138, 54, 0.9), 0 0 15px rgba(0, 255, 128, 0.5); }
-            100% { transform: translateY(0); box-shadow: 0 0 15px rgba(27, 138, 54, 0.6); }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 15px rgba(27, 138, 54, 0.6); }
+            50% { box-shadow: 0 0 25px rgba(27, 138, 54, 0.9), 0 0 15px rgba(0, 255, 128, 0.5); }
+            100% { box-shadow: 0 0 15px rgba(27, 138, 54, 0.6); }
         }
         
         .btn-bundle::before {
@@ -148,11 +163,11 @@
         }
         @keyframes fastSlideLight { 0% { left: -100%; } 100% { left: 200%; } }
 
-        /* Hover Effect exactly like download button */
+        /* Smooth hover zoom without any jhatka */
         .btn-bundle:hover { 
-            animation: none; /* Mouse hold par continuous animation stop karega */
-            transform: scale(1.05) translateY(-5px); 
-            box-shadow: 0 10px 25px rgba(27, 138, 54, 0.9); 
+            transform: scale(1.05); /* Only scale, float is handled by wrapper */
+            box-shadow: 0 10px 25px rgba(27, 138, 54, 0.9) !important; 
+            animation-play-state: paused; /* Optional: pauses the glow while hovering */
         }
 
         /* --- SOFTWARE GRID --- */
@@ -270,8 +285,10 @@
                 <img src="character-animator.svg" alt="Ch">
             </div>
         </div>
-        <!-- Link ko update kiya gaya hai takki click karne par jhatka na aaye -->
-        <a href="#" onclick="event.preventDefault();" class="btn-bundle">Pay Now</a>
+        <!-- Wrapper handles float, button handles smooth hover & link -->
+        <div class="bundle-btn-wrapper">
+            <a href="https://youtu.be/COu2hEGOeuY?si=UR0qDrfWaT4xMIze" target="_blank" class="btn-bundle">Pay Now</a>
+        </div>
     </div>
 
     <div class="software-container" id="softwareList">
