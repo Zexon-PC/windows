@@ -227,11 +227,14 @@
         .tutorial-icon {
             font-size: 45px; color: #ffcc00;
             filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.6));
-            animation: pulseIcon 2s infinite alternate;
+            animation: pulseIcon 2s ease-in-out infinite alternate;
+            will-change: transform, filter; /* FIX: Hardware Acceleration for PC smooth rendering */
+            transform: translateZ(0); /* FIX: Force GPU usage */
+            backface-visibility: hidden;
         }
         @keyframes pulseIcon {
-            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.4)); }
-            100% { transform: scale(1.05); filter: drop-shadow(0 0 25px rgba(255, 204, 0, 0.8)); }
+            0% { transform: scale(1) translateZ(0); filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.4)); }
+            100% { transform: scale(1.08) translateZ(0); filter: drop-shadow(0 0 25px rgba(255, 204, 0, 0.8)); }
         }
         .tutorial-text { text-align: left; }
         .tutorial-text h3 { font-size: 20px; font-weight: 600; margin-bottom: 5px; color: #fff; letter-spacing: 0.5px;}
@@ -456,7 +459,6 @@
                 <p>Website kaise use karna hai, download & install process, sab kuch is video mein dekhein.</p>
             </div>
         </div>
-        <!-- IMPORTANT: Apna master drive video link yaha par "openVideo('...')" ke andar dal dena -->
         <button class="btn btn-video" onclick="event.preventDefault(); openVideo('https://drive.google.com/file/d/1eRc7C8OLn8G9_vUHfZdj6GYnmGOhiZlL/preview')">
             <i class="fa-solid fa-video"></i> Watch Video
         </button>
@@ -470,12 +472,12 @@
             <i class="fa-solid fa-money-check-dollar" style="font-size: 60px; color: #00ffcc; margin-bottom: 15px; filter: drop-shadow(0 0 15px #00ffcc);"></i>
             <div class="software-title">Payment Testing System</div>
             <p style="font-size: 13px; color: #ccc; margin-bottom: 10px; line-height: 1.4;">
-                Yah sirf payment test karne ke liye hai ki tum website per payment karne ke bad payment success hoga ya nahin hoga.
+                Sirf <strong>₹1</strong> ka demo payment karke website ka secure payment system test karo.
             </p>
             
             <div style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 10px; margin-bottom: 20px;">
                 <p style="font-size: 13px; color: #fff; line-height: 1.5; margin: 0;">
-                    Agar tumko bhi aisi professional website chahie ya ye same website to mujhse contact karo.
+                    <i class="fa-solid fa-laptop-code" style="color: #00d2ff; margin-right: 5px;"></i> Apne liye aisi hi premium website banwani hai toh mujhse contact karo.
                 </p>
             </div>
 
@@ -959,7 +961,7 @@
 
         const searchInput = document.getElementById('searchInput');
         const bundleSection = document.getElementById('bundleSection');
-        const tutorialSection = document.getElementById('tutorialSection'); // Naya section variable
+        const tutorialSection = document.getElementById('tutorialSection'); 
         const searchError = document.getElementById('search-error');
         const allCards = document.querySelectorAll('.software-card');
 
@@ -968,7 +970,7 @@
             
             if (query === "") {
                 bundleSection.style.display = 'block'; 
-                tutorialSection.style.display = 'flex'; // Agar khali ho to video section dikhao
+                tutorialSection.style.display = 'flex'; 
                 searchError.style.display = 'none';
                 allCards.forEach(card => {
                     if(card.style.display === 'none' || card.style.display === '') {
@@ -982,7 +984,7 @@
             }
             
             bundleSection.style.display = 'none';
-            tutorialSection.style.display = 'none'; // Search karne par hide kar diya hai
+            tutorialSection.style.display = 'none'; 
             
             const yearMatch = query.match(/\d{2,4}/);
             const searchYear = yearMatch ? yearMatch[0] : null;
