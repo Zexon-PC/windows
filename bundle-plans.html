@@ -18,6 +18,34 @@
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
         }
 
+        /* ========================================================= */
+        /* --- SMOOTH ENTRY ANIMATIONS (Restored & Fixed Overlap) --- */
+        /* ========================================================= */
+        
+        /* Header drops first */
+        .top-wrapper { animation: smoothDrop 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
+        
+        /* Bundle aur cards header aane ke baad smoothly upar aayenge taaki overalap na ho */
+        .bundle-section { animation: smoothUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s backwards; }
+        .software-card { animation: smoothUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) backwards; }
+        
+        /* Staggered load for cards */
+        .software-card:nth-child(1) { animation-delay: 0.5s; }
+        .software-card:nth-child(2) { animation-delay: 0.6s; }
+        .software-card:nth-child(3) { animation-delay: 0.7s; }
+        .software-card:nth-child(4) { animation-delay: 0.8s; }
+        .software-card:nth-child(5) { animation-delay: 0.9s; }
+        .software-card:nth-child(6) { animation-delay: 1.0s; }
+        .software-card:nth-child(7) { animation-delay: 1.1s; }
+        .software-card:nth-child(8) { animation-delay: 1.2s; }
+        .software-card:nth-child(9) { animation-delay: 1.3s; }
+        .software-card:nth-child(10) { animation-delay: 1.4s; }
+        .software-card:nth-child(11) { animation-delay: 1.5s; }
+
+        @keyframes smoothDrop { 0% { transform: translateY(-100%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes smoothUp { 0% { transform: translateY(40px) scale(0.95); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
+        /* ========================================================= */
+
         /* --- BACKGROUND STYLES --- */
         .bg-animation {
             position: fixed;
@@ -74,6 +102,7 @@
             text-align: center; margin: 40px auto 20px auto; width: 90%; max-width: 1000px; padding: 50px 30px;
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            position: relative; z-index: 10;
         }
 
         .bundle-title-wrapper {
@@ -101,52 +130,53 @@
             100% { filter: drop-shadow(0 0 15px #ff0000) drop-shadow(0 0 35px #ff0000); }
         }
 
-        /* --- SMOOTH FLOATING & SHINING GREEN BUTTON --- */
+        /* --- VIBRATING (JHATKA) BUTTON ANIMATION SYSTEM --- */
+        
+        /* Wrapper handles the shake/vibration */
         .bundle-btn-wrapper {
             display: inline-block;
             margin-top: 15px; 
-            animation: slowFloatUpDown 3s infinite ease-in-out;
+            animation: vibrateShake 2.5s infinite; /* Har 2.5s mein jhatka marega */
         }
         
-        /* Stop the floating movement completely when mouse is on it */
+        /* Mouse le jaate hi vibration ekdum STOOP ho jayegi */
         .bundle-btn-wrapper:hover {
-            animation-play-state: paused; 
+            animation: none; 
         }
 
-        @keyframes slowFloatUpDown {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-            100% { transform: translateY(0); }
+        /* 3 fast jhatke (left-right) */
+        @keyframes vibrateShake {
+            0%, 85% { transform: translateX(0); }
+            87% { transform: translateX(-6px); }
+            90% { transform: translateX(6px); }
+            93% { transform: translateX(-6px); }
+            96% { transform: translateX(6px); }
+            98% { transform: translateX(-3px); }
+            100% { transform: translateX(0); }
         }
 
+        /* Button handles color, light sweep and the BUTTER SMOOTH HOVER */
         .btn-bundle {
             background: #1b8a36; /* Premium Green */
             color: white; padding: 14px 40px; border: none; border-radius: 30px;
             font-size: 18px; font-weight: 600; cursor: pointer; text-decoration: none;
             display: inline-block; position: relative; overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            /* Yahi wo property hai jo butter smooth animation deti hai */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             box-shadow: 0 0 15px rgba(27, 138, 54, 0.6);
-            animation: glowPulse 3s infinite ease-in-out;
-        }
-
-        @keyframes glowPulse {
-            0% { box-shadow: 0 0 15px rgba(27, 138, 54, 0.6); }
-            50% { box-shadow: 0 0 25px rgba(27, 138, 54, 0.9), 0 0 15px rgba(0, 255, 128, 0.5); }
-            100% { box-shadow: 0 0 15px rgba(27, 138, 54, 0.6); }
         }
         
         .btn-bundle::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
-            transform: skewX(-20deg); animation: fastSlideLight 2s infinite linear;
+            transform: skewX(-20deg); animation: fastSlideLight 2.5s infinite linear;
         }
         @keyframes fastSlideLight { 0% { left: -100%; } 100% { left: 200%; } }
 
-        /* Smooth hover zoom and stop the glow */
+        /* Butter smooth zoom in on hover */
         .btn-bundle:hover { 
-            transform: scale(1.05); /* Sirf zoom in karega smooth tarike se */
-            box-shadow: 0 10px 25px rgba(27, 138, 54, 0.9) !important; 
-            animation-play-state: paused; 
+            transform: scale(1.08); /* Bina hile sirf smooth zoom hoga */
+            box-shadow: 0 10px 25px rgba(27, 138, 54, 0.9); 
         }
 
         /* --- SOFTWARE GRID --- */
