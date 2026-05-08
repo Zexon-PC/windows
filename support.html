@@ -18,12 +18,45 @@
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
         }
 
+        /* --- SMOOTH ENTRY ANIMATIONS --- */
+        .top-wrapper {
+            animation: smoothDrop 1s cubic-bezier(0.25, 0.8, 0.25, 1) backwards;
+        }
+        
+        .software-card {
+            animation: smoothUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) backwards;
+        }
+        
+        /* Staggered delay for cards to pop one by one */
+        .software-card:nth-child(1) { animation-delay: 0.3s; }
+        .software-card:nth-child(2) { animation-delay: 0.5s; }
+        
+        .floating-social {
+            animation: smoothUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.8s backwards;
+        }
+
+        @keyframes smoothDrop {
+            0% { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes smoothUp {
+            0% { transform: translateY(60px) scale(0.95); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
         /* --- NEW ANIMATED BACKGROUND STYLES --- */
         .bg-animation {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1; overflow: hidden;
+            animation: fadeIn 1.5s ease-in-out backwards;
         }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
         .orb {
             position: absolute;
             border-radius: 50%;
