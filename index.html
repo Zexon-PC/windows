@@ -346,22 +346,19 @@
             z-index: 2000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease-out;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
+        
+        /* NEW SIZE FOR VIDEO MODAL: Almost Fullscreen */
         .modal-content {
             background: #000; border-radius: 10px; box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 60px rgba(255, 0, 255, 0.6);
             position: relative; transform: scale(0.8); opacity: 0; transition: transform 0.3s ease-out, opacity 0.3s ease-out;
         }
-        
-        .video-modal-content { width: 80%; max-width: 800px; aspect-ratio: 16/9; transition: all 0.3s ease; }
-        
-        /* Auto Fullscreen Class */
-        .video-modal-content.in-fullscreen {
-            width: 100vw !important;
-            height: 100vh !important;
-            max-width: 100% !important;
-            aspect-ratio: auto !important;
-            border-radius: 0;
+        .video-modal-content { 
+            width: 95%; 
+            max-width: 1400px; 
+            aspect-ratio: 16/9; 
+            max-height: 90vh; 
         }
-
+        
         .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
         .modal-content iframe { width: 100%; height: 100%; border-radius: inherit; border: none; }
 
@@ -784,7 +781,7 @@
         <a href="#" onclick="event.preventDefault(); window.open('https://t.me/Its_Maxado', '_blank');" class="telegram"><i class="fa-brands fa-telegram"></i></a>
     </div>
 
-    <!-- CLEANED UP VIDEO MODAL -->
+    <!-- CLEANED UP & RESPONSIVE VIDEO MODAL -->
     <div class="modal-overlay" id="videoModal" onclick="closeVideo()">
         <div class="modal-content video-modal-content" id="videoModalContent" onclick="event.stopPropagation()">
             <iframe id="videoIframe" src="" allow="autoplay; fullscreen" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
@@ -858,84 +855,21 @@
             document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
         });
 
-        // --- FULL SCREEN & MODAL LOGIC (OPTIMIZED & GLITCH-FREE) ---
+        // --- SIMPLE & CLEAN VIDEO MODAL LOGIC (BUG FREE) ---
         function openVideo(link) {
             if(link.includes('/view')) link = link.replace(/\/view.*/, '/preview');
             const iframe = document.getElementById('videoIframe');
             iframe.src = link;
             
             const modal = document.getElementById('videoModal');
-            const modalContent = document.getElementById('videoModalContent');
-            
             modal.style.display = 'flex'; 
-            void modal.offsetWidth; // Force browser reflow to prevent glitch
-            modal.classList.add('active'); 
-            
-            // Immediately request fullscreen synchronously to prevent browser block
-            let fs = null;
-            if (modalContent.requestFullscreen) {
-                fs = modalContent.requestFullscreen();
-            } else if (modalContent.webkitRequestFullscreen) {
-                fs = modalContent.webkitRequestFullscreen();
-            } else if (modalContent.msRequestFullscreen) {
-                fs = modalContent.msRequestFullscreen();
-            }
-
-            // Lock orientation to landscape on mobile once fullscreen is triggered
-            if (fs && typeof fs.then === 'function') {
-                fs.then(() => {
-                    if (screen.orientation && screen.orientation.lock) {
-                        screen.orientation.lock("landscape").catch(e => {});
-                    }
-                }).catch(e => {});
-            } else {
-                setTimeout(() => {
-                    if (screen.orientation && screen.orientation.lock) {
-                        screen.orientation.lock("landscape").catch(e => {});
-                    }
-                }, 100);
-            }
-        }
-
-        // Listens to browser native Fullscreen changes (Including Google Drive player minimize button)
-        document.addEventListener('fullscreenchange', handleFsChange);
-        document.addEventListener('webkitfullscreenchange', handleFsChange);
-        document.addEventListener('msfullscreenchange', handleFsChange);
-
-        function handleFsChange() {
-            const isFs = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-            const modalContent = document.getElementById('videoModalContent');
-            const modal = document.getElementById('videoModal');
-            
-            if (!isFs) {
-                // EXITED FULLSCREEN (By clicking drive's native minimize, ESC, or mobile Back)
-                if (screen.orientation && screen.orientation.unlock) {
-                    screen.orientation.unlock(); // Fixes portrait lock issue
-                }
-                modalContent.classList.remove('in-fullscreen');
-                
-                // Directly close the modal to return to main website
-                if (modal.classList.contains('active')) {
-                    closeVideo();
-                }
-            } else {
-                // ENTERED FULLSCREEN
-                modalContent.classList.add('in-fullscreen');
-            }
+            setTimeout(() => { modal.classList.add('active'); }, 10);
         }
 
         function closeVideo() {
             const modal = document.getElementById('videoModal');
             modal.classList.remove('active'); 
             
-            // Ensure fullscreen exits if modal is clicked away
-            const isFs = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-            if (isFs) {
-                if (document.exitFullscreen) document.exitFullscreen();
-                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                else if (document.msExitFullscreen) document.msExitFullscreen();
-            }
-
             setTimeout(() => { 
                 modal.style.display = 'none'; 
                 document.getElementById('videoIframe').src = ""; 
