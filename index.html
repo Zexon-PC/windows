@@ -228,8 +228,8 @@
             font-size: 45px; color: #ffcc00;
             filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.6));
             animation: pulseIcon 2s ease-in-out infinite alternate;
-            will-change: transform, filter; /* FIX: Hardware Acceleration for PC smooth rendering */
-            transform: translateZ(0); /* FIX: Force GPU usage */
+            will-change: transform, filter; 
+            transform: translateZ(0); 
             backface-visibility: hidden;
         }
         @keyframes pulseIcon {
@@ -309,7 +309,6 @@
             gap: 10px; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
-        /* HOVER EFFECTS */
         .btn:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); z-index: 2; }
         
         .btn:active, .btn-bundle:active, .contact-modal-btn:active { 
@@ -351,9 +350,42 @@
             background: #000; border-radius: 10px; box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 60px rgba(255, 0, 255, 0.6);
             position: relative; transform: scale(0.8); opacity: 0; transition: transform 0.3s ease-out, opacity 0.3s ease-out;
         }
-        .video-modal-content { width: 80%; max-width: 800px; aspect-ratio: 16/9; }
+        .video-modal-content { width: 80%; max-width: 800px; aspect-ratio: 16/9; transition: all 0.3s ease; }
+        
+        /* Auto Fullscreen Class specific rules */
+        .video-modal-content.in-fullscreen {
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100% !important;
+            aspect-ratio: auto !important;
+            border-radius: 0;
+        }
+
         .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
-        .modal-content iframe { width: 100%; height: 100%; border-radius: 10px; border: none; }
+        .modal-content iframe { width: 100%; height: 100%; border-radius: inherit; border: none; }
+
+        /* CUSTOM FULLSCREEN EXIT BUTTON */
+        .btn-exit-fs {
+            display: none;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            pointer-events: auto;
+        }
+        .btn-exit-fs:hover {
+            background: rgba(255, 50, 50, 0.8);
+            border-color: #ff4d4d;
+        }
 
         .contact-modal-content {
             width: 90%; max-width: 400px; padding: 40px; display: flex; flex-direction: column; gap: 20px;
@@ -774,8 +806,12 @@
         <a href="#" onclick="event.preventDefault(); window.open('https://t.me/Its_Maxado', '_blank');" class="telegram"><i class="fa-brands fa-telegram"></i></a>
     </div>
 
+    <!-- UPDATED VIDEO MODAL WITH CUSTOM EXIT BUTTON -->
     <div class="modal-overlay" id="videoModal" onclick="closeVideo()">
-        <div class="modal-content video-modal-content" onclick="event.stopPropagation()">
+        <div class="modal-content video-modal-content" id="videoModalContent" onclick="event.stopPropagation()">
+            <button id="exitFsBtn" onclick="exitCustomFullScreen()" class="btn-exit-fs">
+                <i class="fa-solid fa-compress"></i> Minimize
+            </button>
             <iframe id="videoIframe" src="" allow="autoplay; fullscreen" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
         </div>
     </div>
@@ -847,37 +883,89 @@
             document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
         });
 
-        // --- MODAL LOGIC ---
+        // --- FULL SCREEN & MODAL LOGIC WITH CUSTOM MINIMIZE BUTTON ---
         function openVideo(link) {
-            // Converts standard drive link to preview link for iframe embedding
             if(link.includes('/view')) link = link.replace(/\/view.*/, '/preview');
             const iframe = document.getElementById('videoIframe');
             iframe.src = link;
+            
             const modal = document.getElementById('videoModal');
-            modal.style.display = 'flex'; setTimeout(() => { modal.classList.add('active'); }, 10);
-
-            // Fullscreen & Landscape Auto-Play Script Added Here
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen().then(() => {
-                    if (screen.orientation && screen.orientation.lock) {
-                        screen.orientation.lock("landscape").catch(e => console.log(e));
-                    }
-                }).catch(e => console.log(e));
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-                if (screen.orientation && screen.orientation.lock) {
-                    screen.orientation.lock("landscape").catch(e => console.log(e));
+            const modalContent = document.getElementById('videoModalContent');
+            
+            modal.style.display = 'flex'; 
+            setTimeout(() => { 
+                modal.classList.add('active'); 
+                
+                // Direct Fullscreen Action
+                if (modalContent.requestFullscreen) {
+                    modalContent.requestFullscreen().then(() => lockLandscape()).catch(e => console.log(e));
+                } else if (modalContent.webkitRequestFullscreen) {
+                    modalContent.webkitRequestFullscreen(); lockLandscape();
+                } else if (modalContent.msRequestFullscreen) {
+                    modalContent.msRequestFullscreen(); lockLandscape();
                 }
-            } else if (iframe.msRequestFullscreen) {
-                iframe.msRequestFullscreen();
-            }
+            }, 10);
         }
         
+        function lockLandscape() {
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock("landscape").catch(e => console.log("Landscape lock not supported on this device."));
+            }
+        }
+
+        // Custom Exit button click action
+        function exitCustomFullScreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+
+        // Listens to browser native Fullscreen changes (Esc key, Back button, or Custom Button)
+        document.addEventListener('fullscreenchange', handleFsChange);
+        document.addEventListener('webkitfullscreenchange', handleFsChange);
+        document.addEventListener('msfullscreenchange', handleFsChange);
+
+        function handleFsChange() {
+            const exitBtn = document.getElementById('exitFsBtn');
+            const modalContent = document.getElementById('videoModalContent');
+            const isFs = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+            
+            if (isFs) {
+                // In Fullscreen
+                exitBtn.style.display = 'block';
+                modalContent.classList.add('in-fullscreen');
+            } else {
+                // Exited Fullscreen (half-screen mode)
+                exitBtn.style.display = 'none';
+                modalContent.classList.remove('in-fullscreen');
+                
+                // Unlock mobile orientation when exiting full screen
+                if (screen.orientation && screen.orientation.unlock) {
+                    screen.orientation.unlock();
+                }
+            }
+        }
+
         function closeVideo() {
             const modal = document.getElementById('videoModal');
             modal.classList.remove('active'); 
-            setTimeout(() => { modal.style.display = 'none'; document.getElementById('videoIframe').src = ""; }, 300);
+            
+            // Clean exit if user closes modal entirely while in Full Screen
+            const isFs = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+            if (isFs) {
+                exitCustomFullScreen();
+            }
+
+            setTimeout(() => { 
+                modal.style.display = 'none'; 
+                document.getElementById('videoIframe').src = ""; 
+            }, 300);
         }
+
         function openContactModal() {
             const modal = document.getElementById('contactModal');
             modal.style.display = 'flex'; setTimeout(() => { modal.classList.add('active'); }, 10);
