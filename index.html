@@ -539,7 +539,7 @@
             <div class="custom-select-wrapper" data-value="2026">
                 <div class="custom-select-trigger"><span>Version 2026</span> <i class="fa-solid fa-chevron-down"></i></div>
                 <ul class="custom-select-options">
-                    <li data-value="2026" class="selected" data-download="#" data-pay="https://maxpay.maxado.in/generate_payment.php?template=da31478be6a0a593a800aa9e8e7a194f">Version 2026</li>
+                    <li data-value="2026" class="selected" data-download="https://drive.google.com/file/d/1aTxl5z1fO06peIt-q2n8XiU1bLVGOFsE/view?usp=sharing" data-pay="https://maxpay.maxado.in/generate_payment.php?template=da31478be6a0a593a800aa9e8e7a194f">Version 2026</li>
                 </ul>
             </div>
 
@@ -767,7 +767,7 @@
             </div>
         </div>
 
-    </div> 
+    </div> 
     
     <div class="floating-social">
         <a href="#" onclick="event.preventDefault(); window.open('https://wa.me/message/MTTGHMIF7TNSC1', '_blank');" class="whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
@@ -851,10 +851,28 @@
         function openVideo(link) {
             // Converts standard drive link to preview link for iframe embedding
             if(link.includes('/view')) link = link.replace(/\/view.*/, '/preview');
-            document.getElementById('videoIframe').src = link;
+            const iframe = document.getElementById('videoIframe');
+            iframe.src = link;
             const modal = document.getElementById('videoModal');
             modal.style.display = 'flex'; setTimeout(() => { modal.classList.add('active'); }, 10);
+
+            // Fullscreen & Landscape Auto-Play Script Added Here
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen().then(() => {
+                    if (screen.orientation && screen.orientation.lock) {
+                        screen.orientation.lock("landscape").catch(e => console.log(e));
+                    }
+                }).catch(e => console.log(e));
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock("landscape").catch(e => console.log(e));
+                }
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
         }
+        
         function closeVideo() {
             const modal = document.getElementById('videoModal');
             modal.classList.remove('active'); 
